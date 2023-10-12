@@ -1,0 +1,83 @@
+name: flutter_marvel
+description: A new Flutter project.
+
+# Prevent accidental publishing to pub.dev.
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.1.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # A
+  animate_do: ^3.1.2
+
+  # C
+  cached_network_image: ^3.3.0
+  crypto: ^3.0.3
+
+  # D
+  dartz: ^0.10.1
+  dio: ^5.3.3
+
+  # F
+  flutter_dotenv: ^5.1.0
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.3
+
+  # G
+  get: ^4.6.6
+
+  # S
+  simple_shadow: ^0.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  build_runner: ^2.4.6
+  mockito: ^5.4.2
+
+flutter:
+  uses-material-design: true
+
+  generate: true
+
+  assets:
+    - .env
+    - assets/images/
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/marvel-launcher.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#B70404"
+  adaptive_icon_foreground: "assets/images/marvel-launcher.png"
+  web:
+    generate: true
+    image_path: "assets/images/marvel-launcher.png"
+    background_color: "#B70404"
+    theme_color: "#B70404"
+  windows:
+    generate: true
+    image_path: "assets/images/marvel-launcher.png"
+    icon_size: 48
+  macos:
+    generate: true
+    image_path: "assets/images/marvel-launcher.png"
+
+flutter_native_splash:
+  color: "#B70404"
+  image: assets/images/marvel-logo.png
+
+  android_12:
+    color: "#B70404"
+    image: assets/images/marvel-logo.png
