@@ -14,7 +14,8 @@ class ComicsApiRepository {
 
       return Right(model);
     } on DioException catch (error) {
-      return Left(AppApiRepositoryError(error.response!.data['message'], 'ComicssApiRepository: fetchCharacterComics'));
+      return Left(AppApiRepositoryError(
+          error.response?.data['message'] ?? error.message, 'ComicssApiRepository: fetchCharacterComics'));
     } on Exception catch (error) {
       return Left(
         AppApiRepositoryError(error.toString(), 'ComicssApiRepository: fetchCharacterComics'),

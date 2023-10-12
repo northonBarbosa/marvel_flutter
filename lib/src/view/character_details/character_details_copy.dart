@@ -1,4 +1,3 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_marvel/src/app_utils/app_colors.dart';
@@ -13,7 +12,7 @@ import 'package:flutter_marvel/src/view/character_details/widgets/comic_widget.d
 import 'package:flutter_marvel/src/widgets/base/base_screen_widget.dart';
 import 'package:flutter_marvel/src/widgets/alert_dialogs/error_dialog.dart';
 import 'package:flutter_marvel/src/widgets/image_widgets/cache_image.dart';
-import 'package:flutter_marvel/src/widgets/scroll_widgets/paginated_gridview.dart';
+import 'package:flutter_marvel/src/widgets/scroll_widgets/sliver_paginated_gridview.dart';
 import 'package:get/state_manager.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 
@@ -64,56 +63,60 @@ class _CharacterDetailsViewState extends State<CharacterDetailsView> {
   Widget build(BuildContext context) {
     return BaseScreenWidget(
       screenTitle: _character.name,
-      child: ListView(
-        children: [
-          Center(
-            child: Hero(
-              tag: _character.id,
-              child: SimpleShadow(
-                child: CacheImage(height: 200, width: 200, image: _character.thumbnail),
-              ),
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                Center(
+                  child: Hero(
+                    tag: _character.id,
+                    child: SimpleShadow(
+                      child: CacheImage(height: 200, width: 200, image: _character.thumbnail),
+                    ),
+                  ),
+                ),
+                AppSpacing.verticalSpace(multiplier: PaddingMultiplier.x6),
+                Text(
+                  _character.name,
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(color: AppColors.textDeepBlue),
+                  textAlign: TextAlign.center,
+                ),
+                AppSpacing.verticalSpace(multiplier: PaddingMultiplier.x6),
+                Text(
+                  _character.description,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: AppColors.textDeepBlue,
+                        fontWeight: FontWeight.w500,
+                        height: 1.5,
+                      ),
+                  textAlign: TextAlign.justify,
+                ),
+                AppSpacing.verticalSpace(multiplier: PaddingMultiplier.x8),
+              ],
             ),
           ),
-          AppSpacing.verticalSpace(multiplier: PaddingMultiplier.x6),
-          Text(
-            _character.name,
-            style: Theme.of(context).textTheme.titleLarge!.copyWith(color: AppColors.textDeepBlue),
-            textAlign: TextAlign.center,
-          ),
-          AppSpacing.verticalSpace(multiplier: PaddingMultiplier.x6),
-          Text(
-            _character.description,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: AppColors.textDeepBlue,
-                  fontWeight: FontWeight.w500,
-                  height: 1.5,
-                ),
-            textAlign: TextAlign.justify,
-          ),
-          AppSpacing.verticalSpace(multiplier: PaddingMultiplier.x8),
           Obx(() {
             return _isLoadingComics.value
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : FadeIn(
-                    child: PaginatedGridView(
-                      controller: _comicsController,
-                      params: FetchParams(id: widget.characterId),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 8,
-                        crossAxisSpacing: 8,
-                        mainAxisExtent: 210,
-                      ),
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return ComicWidget(comic: _comicsController.itemsList[index]);
-                      },
+                ? const SliverToBoxAdapter(
+                    child: Center(
+                      child: CircularProgressIndicator(),
                     ),
+                  )
+                : SliverPaginatedGridView(
+                    controller: _comicsController,
+                    params: FetchParams(id: widget.characterId),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 8,
+                      mainAxisExtent: 210,
+                    ),
+                    itemBuilder: (context, index) {
+                      return ComicWidget(comic: _comicsController.itemsList[index]);
+                    },
                   );
-          })
+          }),
         ],
       ),
     );

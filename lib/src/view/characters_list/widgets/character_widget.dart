@@ -3,7 +3,7 @@ import 'package:flutter_marvel/src/app_utils/app_colors.dart';
 import 'package:flutter_marvel/src/app_utils/app_padding.dart';
 import 'package:flutter_marvel/src/app_utils/app_padding_multiplier.dart';
 import 'package:flutter_marvel/src/model/character_model.dart';
-import 'package:flutter_marvel/src/view/character_details/character_details.dart';
+import 'package:flutter_marvel/src/view/character_details/character_details_copy.dart';
 import 'package:flutter_marvel/src/widgets/image_widgets/cache_image.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 

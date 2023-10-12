@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marvel/src/app_utils/app_colors.dart';
-import 'package:flutter_marvel/src/view/character_details/character_details.dart';
+import 'package:flutter_marvel/src/view/character_details/character_details_copy.dart';
 import 'package:flutter_marvel/src/view/characters_list/characters_list_view.dart';
 
 /// The Widget that configures your application.
